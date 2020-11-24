@@ -24,7 +24,7 @@ docker run --name elasticsearch01 -d  -p 9200:9200 -p 9300:9300  --network esnet
 
 #### 1.1.3访问：http://121.89.208.222:9200/
 
-![image-20201121203104550](E:\ElasticSearch学习\images\21.png)
+![image-20201121203104550](images\21.png)
 
 出现该页面则访问成功。
 
@@ -44,7 +44,7 @@ docker exec -it elasticsearch01 bash
 vi  config/elasticsearch.yml
 ```
 
-![image-20201121203659670](E:\ElasticSearch学习\images\22.png)
+![image-20201121203659670](images\22.png)
 
 
 
@@ -70,19 +70,19 @@ docker run --name kibana01 -d  -p 5602:5601 --link=elasticsearch01 kibana:7.9.3
 
 这里使用我已经创建的elastisearch01作为kibana连接的容器。必须要指定 --link=“你已经创建的正在运行的elasticsearch的容器名称”作为容器连接，否则会出现：
 
-![image-20201121205818859](E:\ElasticSearch学习\images\25.png)
+![image-20201121205818859](images\25.png)
 
 #### 1.2.3进入kibana容器kibana01，修改配置文件 kibana.yml
 
 
 
-![image-20201121205100867](E:\ElasticSearch学习\images\23.png)
+![image-20201121205100867](images\23.png)
 
 将 “http://elasticsearch:9200”修改为：“http://elasticsearch01:9200”，也就是把这个URL中的IP地址改为和之前创建kibana时指定的 --link =elasticsearch01的对应。如果创建kibana时未指定 --link，则默认是 “elasticsearch".
 
 
 
-![image-20201121205214593](E:\ElasticSearch学习\images\24.png)
+![image-20201121205214593](images\24.png)
 
 修改后重新启动kibana。
 
@@ -91,7 +91,7 @@ docker restart kibana01
 
 ```
 
-![image-20201121205935284](E:\ElasticSearch学习\images\26.png)
+![image-20201121205935284](images\26.png)
 
 ### 1.3安装elasticsearch head插件监控管理
 
@@ -101,13 +101,13 @@ docker restart kibana01
  docker run --name eshead -d -p 9100:9100  mobz/elasticsearch-head:5-alpine
 ```
 
-![image-20201121212906437](E:\ElasticSearch学习\images\28.png)
+![image-20201121212906437](images\28.png)
 
 #### 1.3.2在服务器开放9100端口
 
 #### 1.3.3访问地址：http://121.89.208.222:9100/
 
-![image-20201121212844162](E:\ElasticSearch学习\images\27.png)
+![image-20201121212844162](images\27.png)
 
 ## 2、ES核心概念
 
