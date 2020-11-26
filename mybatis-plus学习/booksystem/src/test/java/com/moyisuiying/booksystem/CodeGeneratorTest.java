@@ -2,6 +2,7 @@ package com.moyisuiying.booksystem;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
@@ -44,7 +45,8 @@ public class CodeGeneratorTest {
         gc.setServiceName("%sService");
         //service impl 命名方式，默认值：null 例如：%sBusinessImpl 生成 UserBusinessImpl
         gc.setServiceImplName(null);
-
+//        设置ID自动增长
+        gc.setIdType(IdType.AUTO);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
@@ -95,7 +97,7 @@ public class CodeGeneratorTest {
         // 公共父类
 //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+//        strategy.setSuperEntityColumns("id");
 //        设置要映射的数据库表名
         strategy.setInclude("account","book","borrowbook");
 //        设置逻辑删除的字段名称
