@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author 陌意随影
  * @since 2020-11-26
  */
-@Service
+@Service("accountService")
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
 
 }
