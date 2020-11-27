@@ -2,6 +2,7 @@ package com.moyisuiying.booksystem.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
     //Spring boot方式
     @Configuration
     @MapperScan("com.moyisuiying.booksystem.dao")
+    @Slf4j
     public class MybatisPlusConfig {
 
         @Bean

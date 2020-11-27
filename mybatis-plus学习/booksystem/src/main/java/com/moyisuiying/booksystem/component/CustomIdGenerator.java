@@ -1,6 +1,7 @@
 package com.moyisuiying.booksystem.component;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Component;
  * @Version: 1.0
  **/
 @Component
+@Slf4j
 public class CustomIdGenerator  implements IdentifierGenerator {
     @Override
     public Number nextId(Object entity) {
+
         //添加自动生成ID策略
         return null;
     }
