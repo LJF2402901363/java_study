@@ -589,3 +589,26 @@ r1是关系名称
 LIKES是一个关系标签名称
 
 ![image-20201128140602570](E:\新技术学习\java_study\Neo4j学习\images\image-20201128140602570.png)
+
+## 6.Neo4j Java架构
+
+### 6.1下图显示了Neo4j JAVA API应用程序的体系结构
+
+![Neo4j JAVA API](E:\新技术学习\java_study\Neo4j学习\images\201701021529515240.jpg)
+
+客户端程序使用Neo4j Java API之一来在Neo4j数据库上交互和执行数据库操作。
+
+### 6.2在springboot中集成neo4j
+
+#### 6.2.1首先在pom.xml文件中添加依赖文件
+
+```
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-neo4j -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-neo4j</artifactId>
+    <version>2.4.0</version>
+</dependency>
+
+```
+
