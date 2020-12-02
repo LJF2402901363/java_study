@@ -1,5 +1,3 @@
-
-
 # Docker学习
 
 ## 1.Docker概述
@@ -84,6 +82,8 @@ Docker文档地址：https://docs.docker.com/ 很详细。
 
 ![image-20201106233153901](image\image-1.png)
 
+
+
 比较Docker和虚拟机的不同：
 
 ①传统虚拟机，虚拟出一套硬件，运行一个完整的系统，然后在这个系统上安装和运行软件。
@@ -117,6 +117,8 @@ Docker是内核级别的虚拟化，可以在一个武理机上运行很多容�
 ### 2.1架构图
 
 ![image-20201106234341925](image\image-2.png)
+
+
 
 **镜像（image）：**
 
@@ -158,6 +160,8 @@ UBUNTU_CODENAME=bionic
 ```
 
 ![image-20201106235545667](image\image-33.png)
+
+
 
 安装步骤：
 
@@ -270,6 +274,8 @@ sudo systemctl restart docker
 
 ![image-20201107102811341](image\image-4.png)
 
+
+
 ### 2.4Docker的的底层原理
 
 Docker是一个client-Server结构的系统，Docker的守护进程运行在主机上，通过socker从客户端访问，DockerServer接收到DockerClient命令，然后执行这个命令。
@@ -284,7 +290,11 @@ Docker是一个client-Server结构的系统，Docker的守护进程运行在主�
 
 ![image-20201107103410238](image\image-6.png)
 
+
+
 ![image-20201107104313236](image\image-7.png)
+
+
 
 ## 3.Docker的常用命令
 
@@ -818,6 +828,8 @@ docker attach 容器id    #进入容器中正在执行的终端，不会启动�
 
 ![image-20201107134400912](image\image-8.png)
 
+
+
 ## 4.安装常用镜像
 
 ### 4.1安装Nginx
@@ -891,6 +903,8 @@ Commercial support is available at
 
 ![image-20201107135824119](image\image-9.png)
 
+
+
 ### 4.2安装Tomcat
 
 #### ①下载Tomcat安装
@@ -918,6 +932,8 @@ docker exec -it tomcat01 bash
 
 ![image-20201107143435299](image\image-10.png)
 
+
+
 发现是404页面。
 
 **原因：**我们下载的这个Tomcat默认是阉割版的，那些没必要的文件是已经被剔除了的。
@@ -931,6 +947,8 @@ root@b21ced830f4e:/usr/local/tomcat#
 ```
 
 ![image-20201107144032049](image\image-11.png)
+
+
 
 进入webapps目录，该目录是空的，没有相应的资源文件，因为我们在浏览器访问的时候默认就是404页面。但是我们发现这些原有的资源文件保存在了webapps.dist文件夹里：
 
@@ -958,6 +976,8 @@ ROOT  docs  examples  host-manager  manager
 
 ![image-20201107144420539](image\image-13.png)
 
+
+
 ## 5.可视化
 
 ## 5.1portainer(先用这个)
@@ -970,9 +990,11 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
 
 ```
 
-②访问： http:ip:9000
+②访问： http://ip:9000
 
 ![image-20201107211648595](image\image-12.png)
+
+
 
 ## 5.2Rancher（CI/CD再用）
 
@@ -1024,6 +1046,7 @@ CMD ["/bin/bash"]              4.容器启动时运行 bash。
 构建过程如下图所示：
 
 ![Docker镜像的内部结构(四)](image\image-17.png)
+
 可以看到，新镜像是从 base 镜像一层一层叠加生成的。每安装一个软件，就在现有镜像的基础上增加一层。
 
 ### 6.3可写的容器层
@@ -1070,8 +1093,12 @@ CMD ["/bin/bash"]              4.容器启动时运行 bash。
 
    ![在这里插入图片描述](image\image-15.png)
 
-   ![image-20201107213656765](image\image-16.png)
+   
 
+   ![image-20201107213656765](image\image-16.png)
+   
+   
+   
    这是对于一个精简的OS来说，rootfs可以很小，只需要包含最基本的的命令，工具和工具程序库就可以了，因为底层直接用Host的kernel，自己只需要提供rootfs就可以了。由此可见，对于不同的Linux发型版本，bootfs是基本一致的，rootfs有差别，因此不同的发行版本可以共用bootfs。
 
 ### 6.5Docker镜像特点
@@ -1114,6 +1141,7 @@ Docker镜像由多个只读层叠加而成，启动容器时，Docker会加载�
 在这里插入图片描述
 
 ![img](image\image-18.png)
+
 现在我们知道，一个运行的容器有一个或多个只读层和一个读写层。在容器运行过程中，若产生了一些重要的数据或是更改了一些文件，这些更改我们应该怎么保存呢？容器关闭或重启，这些数据不受影响；但删除Docker容器，则数据将会全部丢失。除此之外也还有其他的一些问题。
 
   ①存储于联合文件系统中，不易于宿主机访问。
@@ -1121,7 +1149,7 @@ Docker镜像由多个只读层叠加而成，启动容器时，Docker会加载�
 
 ### 7.2Docker中数据卷（volume）的作用
 
-​	为了解决这些问题，Docker引入了数据卷（volume）机制。volume是存在于一个或多个容器中的特定文件或文件夹，这个目录以独立于联合文件系统的形式在宿主机中存在，并为数据的共享与持久化提供以下便利。
+	为了解决这些问题，Docker引入了数据卷（volume）机制。volume是存在于一个或多个容器中的特定文件或文件夹，这个目录以独立于联合文件系统的形式在宿主机中存在，并为数据的共享与持久化提供以下便利。
 
 ①volume在容器创建时就会初始化，在容器运行时就可以使用其中的文件。
 ②volume能在不同的容器之间共享和重用。
@@ -1471,6 +1499,8 @@ mysql -hlocalhost -uroot -proot
 
 
 
+
+
 #### 7.6.4使用Navicat远程连接
 
 使用navicat for mysql连接mysql发现报错：Client does not support authentication protocol requested by server。。。
@@ -1527,6 +1557,8 @@ mysql> flush privileges;
 
 ![image-20201108094814736](image\image-37.png)
 
+
+
 #### 7.6.5使用控制台登陆MySQL
 
 ```
@@ -1557,6 +1589,8 @@ docker run -d -P  --name nginx02 -v /etc/nginx nginx
 
 ![image-20201108100259754](image\image-38.png)
 
+
+
 由上图可以看到，VOLUME NAME 有的是随机生成的字符串，对于这种就是匿名挂载，因为-v的时候只写了容器内的路径看，而没有写容器外的路径。
 
 #### 7.8.2具名挂载
@@ -1580,6 +1614,8 @@ docker volume ls
 
 ![image-20201108100832025](image\image-39.png)
 
+
+
 可以看到具名卷这里会出现我们给定的命名表示。
 
 #### 7.8.3查看匿名和具名挂载的信息
@@ -1594,6 +1630,8 @@ docker volume ls
 
 
 
+
+
 (2)查看具名卷
 
 ```
@@ -1603,6 +1641,8 @@ docker volume inspect juming
 
 ![image-20201108101539832](image\image-41.png)
 
+
+
 （3）规律
 
 所有docker容器内的卷，没有指定目录的情况下都是在 /var/lib/docker/volumes/XXX
@@ -1610,6 +1650,8 @@ docker volume inspect juming
 docker volumn ls 查看所有的卷都在这个位置/var/lib/docker/volumns
 
 ![image-20201108101741724](image\image-42.png)
+
+
 
 我们通过具名挂载可以方便的找到我们的一个卷，大多数情况在使用的，不建议大家使用匿名挂载
 
@@ -1680,7 +1722,7 @@ Dockerfile的指令根据作用可以分为两种，**构建指令和设置指�
 指令格式：
 
 > RUN <command> (the command is run in a shell - `/bin/sh -c`)
->  RUN ["executable", "param1", "param2" ... ]  (exec form)
+> RUN ["executable", "param1", "param2" ... ]  (exec form)
 
 **(4). CMD（设置container启动时执行的操作）**
 
@@ -1689,7 +1731,7 @@ Dockerfile的指令根据作用可以分为两种，**构建指令和设置指�
 该指令有三种格式：
 
 > CMD ["executable","param1","param2"] (like an exec, this is the preferred form)
->  CMD command param1 param2 (as a shell)
+> CMD command param1 param2 (as a shell)
 
 当Dockerfile指定了ENTRYPOINT，那么使用下面的格式：
 
@@ -1704,7 +1746,7 @@ ENTRYPOINT指定的是一个可执行的脚本或者程序的路径，该指定�
 两种格式:
 
 > ENTRYPOINT ["executable", "param1", "param2"] (like an exec, the preferred form)
->  ENTRYPOINT command param1 param2 (as a shell)
+> ENTRYPOINT command param1 param2 (as a shell)
 
 该指令的使用分为两种情况，一种是独自使用，另一种和CMD指令配合使用。
 
@@ -2235,4 +2277,3 @@ RUN apt-get update && apt-get install -y \
 从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。在大多数情况下只对比 Dockerfile 指令和子镜像就足够了。ADD 和 COPY 指令除外，执行 ADD 和 COPY 时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找，如果检测的文件改变则缓存失效。RUN apt-get -y update命令只检查命令是否匹配，如果匹配就不会再执行更新了。
 
 > 为了有效地利用缓存，你需要保持你的Dockerfile一致，并且尽量在末尾修改。
-
