@@ -600,15 +600,301 @@ LIKES是一个关系标签名称
 
 ### 6.2在springboot中集成neo4j
 
+Spring Boot承担了应用程序配置和引导的大部分责任，因此我们选择在本指南的项目中利用该帮助。[Spring Data Neo4j](https://github.com/neo4j-examples/spring-data-neo4j-intro-app)的示例项目代码在GitHub中。您可以克隆存储库并与本指南一起运行代码，也可以从[Spring Initializr](http://start.spring.io/)页面从头开始构建项目。
+
+我们将使用您可能已经熟悉的电影领域-人员（演员，导演等）和这些人员所涉及的电影。
+
 #### 6.2.1首先在pom.xml文件中添加依赖文件
 
+```properties
+<!--        导入springboot的neo4j依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!--导入neo4j的ogm依赖 -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-core</artifactId>
+            <version>3.2.18</version>
+        </dependency>
 ```
-<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-neo4j -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-neo4j</artifactId>
-    <version>2.4.0</version>
-</dependency>
+
+完整的pom.xml文件为：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.moyisuiying</groupId>
+    <artifactId>neo4j</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>neo4j</name>
+    <description>用于测试neo4j的项目</description>
+
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+<!--        导入springboot的neo4j依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!--导入neo4j的ogm依赖 -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-core</artifactId>
+            <version>3.2.18</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
 
 ```
+
+
+
+#### 6.2.1特征
+
+①Spring Boot集成
+
+②基于注释的对象图映射
+
+③基于接口的存储库支持带注释的和派生的finder方法
+
+④快速的类元数据扫描
+
+⑤优化了数据加载和变更跟踪管理，以减少数据传输
+
+⑥多种传输方式-**二进制协议**，HTTP和嵌入式
+
+⑦持续生命周期事件
+
+#### 6.2.2开始写实体类
+
+实体概述了应用程序中的主要对象。在我们的图中，它们将是节点。
+
+![图模型](E:\新技术学习\java_study\Neo4j学习\images\GraphModel.png)
+
+有一个`Person`实体和一个`Movie`实体，因此每个实体都需要一个域类。每个域类的前几行如下所示。
+
+```java
+@NodeEntity
+public class Person {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    @Property("born")
+    private int birthyear;
+}
+
+@NodeEntity
+public class Movie {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String title;
+    private int released;
+    @Property("tagline")
+    private String description;
+}
+```
+
+每个类都带有注释，`@NodeEntity`以将这些对象用作图中的节点。每个字段都包含一个*id*字段，该字段被注释为，`id`并填充了数据库（`@GeneratedValue`）生成的值。之后的`id`，将设置其他字段来保存我们要捕获的有关该对象的不同信息。
+
+现在我们需要在每个类中添加行以映射节点之间的关系。
+
+#### 6.2.3编写关系角色类Role.java
+
+在我们的图形数据中，电影和人通过几个不同的关系- `ACTED_IN`，`DIRECTED`等相互连接。在该`ACTED_IN`关系上，我们存储一个关系属性，其中包含该人在特定电影中扮演的角色的列表。我们将需要创建一个关系实体以将其绑定到节点实体`Movie`，`Person`并捕获有关该`ACTED_IN`关系的其他属性。
+
+我们创建一个名为关系的实体`Role`连接`Person`到`Movie`由`Role`他/她玩。我们将此新类注释为关系实体（`@RelationshipEntity`），并指定关系的名称（`ACTED_IN`）。
+
+```java
+@RelationshipEntity(type = "ACTED_IN")
+public class Role {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private List<String> roles = new ArrayList<>();
+
+    @StartNode
+    private Person person;
+
+    @EndNode
+    private Movie movie;
+}
+```
+
+该`Role`班也有一个*ID*是由数据库和管理领域*列表*类型字段包含可能的角色，一个人可以在电影播放（可能不止一个）。然后，添加注释以将`Person`和`Movie`节点标记为该关系的*开始节点*和*结束节点*。
+
+#### 6.2.4关系映射
+
+```java
+@NodeEntity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Person {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    @Property("born")
+    private int birthyear;
+    @Relationship(type = "ACTED_IN")
+    private List<Role> actedIn = new ArrayList<>();
+
+    @Relationship(type = "DIRECTED")
+    private List<Movie> directed = new ArrayList<>();
+}
+
+```
+
+`
+
+```java
+@NodeEntity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Movie {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String title;
+    private int released;
+    @Property("tagline")
+    private String description;
+    @Relationship(type = "ACTED_IN", direction = INCOMING)
+    private List<Role> actors = new ArrayList<>();
+
+    @Relationship(type = "DIRECTED", direction = INCOMING)
+    private List<Person> directors = new ArrayList<>();
+}
+```
+
+`Person`和`Movie`类中的引用字段都使用标记为`@Relationship`，关系类型为`ACTED_IN`和`DIRECTED`。方向属性默认是*传出*的，因此我们必须指定关系在`Movie`节点上传入。
+
+最后，由于这些实体都连接在一起，因此当我们在请求中拉出一个实体时，它将拉动其余实体。当它拉其他实体时，它将遵循关系回到起始实体，然后再回到相关实体，从而创建循环无限递归循环。为避免此错误，我们可以添加注释以在遍历关系时忽略某些字段。避免请求递归
+
+```java
+@NodeEntity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Person {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    @Property("born")
+    private int birthyear;
+    @JsonIgnoreProperties("person")
+    @Relationship(type = "ACTED_IN")
+    private List<Role> actedIn = new ArrayList<>();
+    @JsonIgnoreProperties({"actors", "directors"})
+    @Relationship(type = "DIRECTED")
+    private List<Movie> directed = new ArrayList<>();
+}
+```
+
+```java
+@NodeEntity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Movie {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String title;
+    private int released;
+    @Property("tagline")
+    private String description;
+    @JsonIgnoreProperties("movie")
+    @Relationship(type = "ACTED_IN", direction = INCOMING)
+    private List<Role> actors = new ArrayList<>();
+    @JsonIgnoreProperties({"actedIn", "directed"})
+    @Relationship(type = "DIRECTED", direction = INCOMING)
+    private List<Person> directors = new ArrayList<>();
+}
+```
+
+
+
+```java
+
+
+  @RelationshipEntity(type = "ACTED_IN")
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Role {
+       @Id
+        @GeneratedValue
+        private Long id;
+        private List<String> roles = new ArrayList<>();
+        @StartNode
+        @JsonIgnoreProperties({"actedIn", "directed"})
+        private Person person;
+        @EndNode
+        @JsonIgnoreProperties({"actors", "directors"})
+        private Movie movie;
+    }
+```
+
+该`@JsonIgnoreProperties`注释放在所有的关系变量忽略下一个实体的字段连接回，避免了无限递归错误和重复信息返回。现在，我们在应用程序中映射了图结构。这是对象图形映射（OGM）的一部分。
+
+#### 6.2.5查询接口
+
+
 

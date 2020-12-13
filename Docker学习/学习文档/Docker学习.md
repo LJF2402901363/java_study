@@ -1544,7 +1544,7 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password' PASSWORD EXPIRE NE
 更新root用户密码：
 
 ```
-mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
 ```
 
 刷新权限：
@@ -1562,7 +1562,7 @@ mysql> flush privileges;
 #### 7.6.5使用控制台登陆MySQL
 
 ```
-mysql -h 121.89.208.222 -P 3307 -u root -p
+mysql -h ip地址  -P 3307 -u root -p
 ```
 
 **PS：这里的端口指定需要大写的 P才可以，小写p是指定密码**

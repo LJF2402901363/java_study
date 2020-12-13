@@ -799,9 +799,37 @@ public class AccountServiceTest {
     }
 ```
 
-## 4.分页插件
+## 4.分页插件(PaginationInnerInterceptor)
 
-### 4.1config.java中添加以下代码
+### 4.1属性介绍
+
+|  属性名  |   类型   | 默认值 |                             描述                             |
+| :------: | :------: | :----: | :----------------------------------------------------------: |
+| overflow | boolean  | false  | 溢出总页数后是否进行处理(默认不处理,参见 `插件#continuePage` 方法) |
+| maxLimit |   Long   |        |  单页分页条数限制(默认无限制,参见 `插件#handlerLimit` 方法)  |
+|  dbType  |  DbType  |        | 数据库类型(根据类型获取应使用的分页方言,参见 `插件#findIDialect` 方法) |
+| dialect  | IDialect |        |          方言实现类(参见 `插件#findIDialect` 方法)           |
+
+> 建议单一数据库类型的均设置 dbType
+
+### 4.2自定义的 mapper#method 使用分页
+
+```java
+IPage<User> selectPageVo(IPage<?> page, Integer state);
+// or
+List<User> selectPageVo(IPage<User> page, Integer state);
+```
+
+```
+<select id="selectPageVo" resultType="com.baomidou.cloud.entity.UserVo">
+    SELECT id,name FROM user WHERE state=#{state}
+</select>
+```
+
+> 如果返回类型是 IPage 则入参的 IPage 不能为null,因为 返回的IPage == 入参的IPage
+> 如果返回类型是 List 则入参的 IPage 可以为 null(为 null 则不分页),但需要你手动 入参的IPage.setRecords(返回的 List);如果 xml 需要从 page 里取值,需要 `page.属性` 获取
+
+### 4.3config.java中添加以下代码
 
 ```java
 //Spring boot方式
@@ -823,7 +851,7 @@ public class MybatisPlusConfig {
 }
 ```
 
-### 4.3分页函数
+### 4.4分页函数
 
 ```
 /**
@@ -837,7 +865,7 @@ public class MybatisPlusConfig {
 
 
 
-### 4.2进行测试
+### 4.5进行测试
 
 ```java
   @Test
@@ -966,7 +994,7 @@ mybatis-plus:
 
 或者 application.properties中
 
-```
+```properties
 
 # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
 mybatis-plus.global-config.db-config.logic-delete-field=deleted
