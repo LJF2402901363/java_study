@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Classname:Jwtinterceptor
  *
- * @description:
+ * @description:  JWT的拦截器用于拦截没有token的请求
  * @author: 陌意随影
  * @Date: 2021-02-01 12:45
  * @Version: 1.0

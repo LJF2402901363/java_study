@@ -20,6 +20,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     JwtInterceptor jwtInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //注意这里不要使用 new JwtInterceptor() ，否则就会出现拦截器JwtInterceptor里无法自动注入JwtUtil的问题
         registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/static/**","/user/login");
     }
 }

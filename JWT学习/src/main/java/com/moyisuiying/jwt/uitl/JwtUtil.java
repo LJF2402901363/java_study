@@ -71,9 +71,16 @@ public class JwtUtil {
         String  token = builder.sign(Algorithm.HMAC256(secret));
         return token;
     }
-  public void parseTokenToClaims(String token){
+    /**
+     * @Description :获取token数据声明中keyName对应的value值
+     * @Date 16:55 2021/2/1 0001
+     * @Param * @param keyName   数据生命的key
+     * @param token 已有的token
+     * @return String
+     **/
+  public String  getTokenClaimByName(String keyName,String token){
       DecodedJWT decode = JWT.decode(token);
-
+      return decode.getClaim(keyName).asString();
   }
     /**
      * 验证JwtToken
