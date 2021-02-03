@@ -47,7 +47,7 @@ Swagger 是一个规范和完整的框架，用于生成、描述、调用和可
 
 ### 3.1创建一个springboot项目
 
-![image-20201122133250326](E:\Swagger学习\image\9.png)
+![image-20201122133250326](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/9.png)
 
 ### 3.2在pom.xml文件中加入依赖
 
@@ -263,11 +263,72 @@ public class User {
 
 ```
 
-### 3.6启动
+### 3.6如果项目中使用了拦截器，需要放行Swagger的静态资源：
 
-### 3.7访问：http://localhost:8081/swagger-ui/index.html
+#### 3.6.1Swagger2.0版本拦截器放行配置实例
 
-![image-20201122211401222](E:\Swagger学习\image\image-20201122211401222.png)
+```java
+@Configuration
+public class SpringConfig implements WebMvcConfigurer {
+  @Autowired
+  private AuthInterceptor authInterceptor; 
+  
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry
+        .addInterceptor(authInterceptor)
+        .addPathPatterns("/**")
+        .excludePathPatterns("/account/**")
+        // 静态资源
+        .excludePathPatterns("/js/**", "/css/**", "/images/**", "/lib/**",
+            "/fonts/**")
+        // swagger-ui
+        .excludePathPatterns("/swagger-resources/**", "/webjars/**",
+            "/v2/**", "/swagger-ui.html/**");
+    registry.addInterceptor(responseInterceptor).addPathPatterns("/**");
+  }
+
+  // 必须添加
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+  }
+}
+```
+
+#### 3.6.2Swagger3.0版本拦截器放行配置实例
+
+```java
+  @Autowired
+    JwtInterceptor jwtInterceptor;
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //注意这里不要使用 new JwtInterceptor() ，否则就会出现拦截器JwtInterceptor里无法自动注入JwtUtil的问题
+        registry.addInterceptor(jwtInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/static/**","/login/**")
+                .excludePathPatterns("/swagger-ui/**", "/swagger-ui.html/**","/v3/**","/swagger-resources/**","/webjars/**");
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+```
+
+
+
+### 3.7启动
+
+### 3.8访问：http://localhost:8081/swagger-ui/index.html
+
+![image-20201122211401222](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201122211401222.png)
 
 **Swagger3.0版本的地址是http://localhost:8088/swagger-ui/index.html，2.x版本中访问的地址的为http://localhost:8088/swagger-ui.html**
 

@@ -30,7 +30,7 @@ public class CodeGeneratorTest {
         GlobalConfig gc = new GlobalConfig();
 //        String projectPath = System.getProperty("user.dir");
 //        项目的根路径
-        String projectPath = "E:\\新技术学习\\java_study\\mybatis-plus学习\\booksystemWeb";
+        String projectPath = "E:\\计设比赛\\古韵开发-gitee\\code";
 //        设置输出目录
         gc.setOutputDir(projectPath + "/src/main/java");
 //        设置作者
@@ -54,7 +54,7 @@ public class CodeGeneratorTest {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
 //        设置数据的URL
-        dsc.setUrl("jdbc:mysql://localhost:3306/javaweb?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/poem1?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
 //        设置数据库的驱动
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
@@ -69,9 +69,9 @@ public class CodeGeneratorTest {
         // 包配置
         PackageConfig pc = new PackageConfig();
 //        设置项目模块名
-        pc.setModuleName("booksystem");
+        pc.setModuleName("shiyun");
 //        设置父类名
-        pc.setParent("com.moyisuiying");
+        pc.setParent("com");
 //        设置实体类包名
         pc.setEntity("entity");
 //        设置控制器包名
@@ -86,7 +86,7 @@ public class CodeGeneratorTest {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
 //        设置表名到实体类间的映射规则，表AccountPart 到实体类的 表AccountPart是一致的，没还有发生变化
-        strategy.setNaming(NamingStrategy.no_change);
+        strategy.setNaming(NamingStrategy.underline_to_camel);
 //        设置表的列属性到实体类属性名的映射规则，这里设置了没有改变，比如 表中的 nickName 到实体类的 nickName是一致的，没还有发生变化
         strategy.setColumnNaming(NamingStrategy.no_change);
 //        strategy.setSuperEntityClass();
@@ -99,15 +99,15 @@ public class CodeGeneratorTest {
         // 写于父类中的公共字段
 //        strategy.setSuperEntityColumns("id");
 //        设置要映射的数据库表名
-        strategy.setInclude("account","book","borrowbook");
+        strategy.setInclude("author","author_description","ci_pai","dynasty","event","place","poem","tag");
 //        设置逻辑删除的字段名称
-        strategy.setLogicDeleteFieldName("deleted");
+        strategy.setLogicDeleteFieldName("isDeleted");
 //        设置乐观锁
         strategy.setVersionFieldName("version");
         strategy.setControllerMappingHyphenStyle(true);
         // 自动填充配置
-        TableFill gmtCreate = new TableFill("createTime", FieldFill.INSERT);
-        TableFill gmtModified = new TableFill("updateTime",FieldFill.INSERT_UPDATE);
+        TableFill gmtCreate = new TableFill("createdAt", FieldFill.INSERT);
+        TableFill gmtModified = new TableFill("updatedAt",FieldFill.INSERT_UPDATE);
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(gmtCreate);
         tableFills.add(gmtModified);
