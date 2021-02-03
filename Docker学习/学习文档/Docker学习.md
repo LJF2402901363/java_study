@@ -80,7 +80,7 @@ Docker文档地址：https://docs.docker.com/ 很详细。
 
 
 
-![image-20201106233153901](image\image-1.png)
+![image-20201106233153901](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-1.png)
 
 
 
@@ -116,7 +116,7 @@ Docker是内核级别的虚拟化，可以在一个武理机上运行很多容�
 
 ### 2.1架构图
 
-![image-20201106234341925](image\image-2.png)
+![image-20201106234341925](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-2.png)
 
 
 
@@ -159,7 +159,7 @@ VERSION_CODENAME=bionic
 UBUNTU_CODENAME=bionic
 ```
 
-![image-20201106235545667](image\image-33.png)
+![image-20201106235545667](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-33.png)
 
 
 
@@ -272,7 +272,7 @@ sudo systemctl restart docker
 
 ### 2.3运行hello-world分析
 
-![image-20201107102811341](image\image-4.png)
+![image-20201107102811341](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-4.png)
 
 
 
@@ -280,7 +280,7 @@ sudo systemctl restart docker
 
 Docker是一个client-Server结构的系统，Docker的守护进程运行在主机上，通过socker从客户端访问，DockerServer接收到DockerClient命令，然后执行这个命令。
 
-![image-20201107103212005](image\image-5.png)
+![image-20201107103212005](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-5.png)
 
 **Docker为啥比VMware快**
 
@@ -288,11 +288,11 @@ Docker是一个client-Server结构的系统，Docker的守护进程运行在主�
 
 2.Docker利用的是宿主机的内核，而VMware需要的是GuestOs。所以新建一个容器的时候，Docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。而虚拟机是加载GuestOS，分钟级别启动，而Docker利用的是宿主机的操作系统，所以启动是秒级的。
 
-![image-20201107103410238](image\image-6.png)
+![image-20201107103410238](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-6.png)
 
 
 
-![image-20201107104313236](image\image-7.png)
+![image-20201107104313236](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-7.png)
 
 
 
@@ -826,7 +826,7 @@ docker attach 容器id    #进入容器中正在执行的终端，不会启动�
 
 
 
-![image-20201107134400912](image\image-8.png)
+![image-20201107134400912](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-8.png)
 
 
 
@@ -901,7 +901,7 @@ Commercial support is available at
 
 ```
 
-![image-20201107135824119](image\image-9.png)
+![image-20201107135824119](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-9.png)
 
 
 
@@ -930,7 +930,7 @@ docker exec -it tomcat01 bash
 
 ⑤在浏览器中访问Tomcat： http://121.89.208.222:3305/
 
-![image-20201107143435299](image\image-10.png)
+![image-20201107143435299](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-10.png)
 
 
 
@@ -946,7 +946,7 @@ root@b21ced830f4e:/usr/local/tomcat#
 
 ```
 
-![image-20201107144032049](image\image-11.png)
+![image-20201107144032049](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-11.png)
 
 
 
@@ -974,7 +974,7 @@ ROOT  docs  examples  host-manager  manager
 
 重新访问成功
 
-![image-20201107144420539](image\image-13.png)
+![image-20201107144420539](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-13.png)
 
 
 
@@ -992,7 +992,7 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
 
 ②访问： http://ip:9000
 
-![image-20201107211648595](image\image-12.png)
+![image-20201107211648595](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-12.png)
 
 
 
@@ -1045,7 +1045,7 @@ CMD ["/bin/bash"]              4.容器启动时运行 bash。
 
 构建过程如下图所示：
 
-![Docker镜像的内部结构(四)](image\image-17.png)
+![Docker镜像的内部结构(四)](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-17.png)
 
 可以看到，新镜像是从 base 镜像一层一层叠加生成的。每安装一个软件，就在现有镜像的基础上增加一层。
 
@@ -1055,7 +1055,7 @@ CMD ["/bin/bash"]              4.容器启动时运行 bash。
 
 典型的Linux在启动后，首先将 rootfs 置为 readonly, 进行一系列检查, 然后将其切换为 “readwrite” 供用户使用。在docker中，起初也是将 rootfs 以readonly方式加载并检查，然而接下来利用 union mount 的将一个 readwrite 文件系统挂载在 readonly 的rootfs之上，并且允许再次将下层的 file system设定为readonly 并且向上叠加, 这样一组readonly和一个writeable的结构构成一个container的运行目录, 每一个被称作一个Layer。如下图所示。
 
-![Docker镜像的内部结构(四)](https://s4.51cto.com/images/blog/201711/28/bdf6de9d0071f46b259889fca7f333a6.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=)
+![Docker镜像的内部结构(四)](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/bdf6de9d0071f46b259889fca7f333a6.jpg)
 所有对容器的改动，无论添加、删除、还是修改文件都只会发生在容器层中。只有容器层是可写的，容器层下面的所有镜像层都是只读的。
 
 下面我们深入讨论容器层的细节。
@@ -1091,11 +1091,11 @@ CMD ["/bin/bash"]              4.容器启动时运行 bash。
 
 4. 平时我们安装进虚拟机的CentOS都是几个G大小，但是我们在Docker这里安装的CentOS才几百M。
 
-   ![在这里插入图片描述](image\image-15.png)
+   ![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-15.png)
 
    
 
-   ![image-20201107213656765](image\image-16.png)
+   ![image-20201107213656765](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-16.png)
    
    
    
@@ -1140,7 +1140,7 @@ sha256:ff8cac788ff9bed8eeb91a44c75f55952d14088e2352c7611575f9b56032542e
 Docker镜像由多个只读层叠加而成，启动容器时，Docker会加载只读镜像层并在镜像栈顶部添加一个读写层，如果运行中的容器修改了现有的一个已经存在的文件，那该文件将会从读写层下面的只读层复制到读写层，该文件的只读版本仍然存在，只是已经被读写层中该文件的副本所隐藏，此即"写时复制(COW)"机制。
 在这里插入图片描述
 
-![img](image\image-18.png)
+![img](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-18.png)
 
 现在我们知道，一个运行的容器有一个或多个只读层和一个读写层。在容器运行过程中，若产生了一些重要的数据或是更改了一些文件，这些更改我们应该怎么保存呢？容器关闭或重启，这些数据不受影响；但删除Docker容器，则数据将会全部丢失。除此之外也还有其他的一些问题。
 
@@ -1495,7 +1495,7 @@ mysql -hlocalhost -uroot -proot
 
 登录成功：
 
-![image-20201108094058505](image\image-36.png)
+![image-20201108094058505](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-36.png)
 
 
 
@@ -1505,7 +1505,7 @@ mysql -hlocalhost -uroot -proot
 
 使用navicat for mysql连接mysql发现报错：Client does not support authentication protocol requested by server。。。
 
-![img](https://img2018.cnblogs.com/blog/1197133/201907/1197133-20190722164059842-2019031019.png)
+![img](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/1197133-20190722164059842-2019031019.png)
 
 这是因为我们的root用户还没有开放远程登录权限，只允许本地登录。我们需要进入将root用户权限开启远程登录。
 
@@ -1555,7 +1555,7 @@ mysql> flush privileges;
 
 重新使用Navicat测试连接：
 
-![image-20201108094814736](image\image-37.png)
+![image-20201108094814736](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-37.png)
 
 
 
@@ -1587,7 +1587,7 @@ docker run -d -P  --name nginx02 -v /etc/nginx nginx
  docker volume ls
 ```
 
-![image-20201108100259754](image\image-38.png)
+![image-20201108100259754](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-38.png)
 
 
 
@@ -1612,7 +1612,7 @@ docker run -d -P --name nginx03 -v juming:/etc/nginx nginx
 docker volume ls
 ```
 
-![image-20201108100832025](image\image-39.png)
+![image-20201108100832025](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-39.png)
 
 
 
@@ -1626,7 +1626,7 @@ docker volume ls
  docker volume inspect b080282a5e92649dc07bd59f75952705635f3648a3847cb082624462933d7017
 ```
 
-![image-20201108101356331](image\image-40.png)
+![image-20201108101356331](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-40.png)
 
 
 
@@ -1639,7 +1639,7 @@ docker volume inspect juming
 
 ```
 
-![image-20201108101539832](image\image-41.png)
+![image-20201108101539832](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-41.png)
 
 
 
@@ -1649,7 +1649,7 @@ docker volume inspect juming
 
 docker volumn ls 查看所有的卷都在这个位置/var/lib/docker/volumns
 
-![image-20201108101741724](image\image-42.png)
+![image-20201108101741724](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-42.png)
 
 
 

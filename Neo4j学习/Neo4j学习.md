@@ -60,7 +60,7 @@ docker run --name neo4j -p 7474:7474 -p 7687:7687  -d  -v /neo4j/data:/data    n
 
 ### 3.2访问：http://121.89.208.222:7474/
 
-![image-20201127234756940](E:\新技术学习\java_study\Neo4j学习\images\image-20201127234756940.png)
+![image-20201127234756940](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201127234756940.png)
 
 ### 3.3Neo4j - 构建模块
 
@@ -70,7 +70,7 @@ docker run --name neo4j -p 7474:7474 -p 7687:7687  -d  -v /neo4j/data:/data    n
 
 节点是图表的基本单位。 它包含具有键值对的属性，如下所示
 
-![image-20201127234914803](E:\新技术学习\java_study\Neo4j学习\images\image-20201127234914803.png)
+![image-20201127234914803](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201127234914803.png)
 
 这里Node Name =“Employee”，它包含一组属性作为键值对。
 
@@ -90,11 +90,11 @@ docker run --name neo4j -p 7474:7474 -p 7687:7687  -d  -v /neo4j/data:/data    n
 
 关系是图形数据库的另一个主要构建块。 它连接两个节点，如下所示。
 
-![image-20201127235046483](E:\新技术学习\java_study\Neo4j学习\images\image-20201127235046483.png)
+![image-20201127235046483](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201127235046483.png)
 
 这里Emp和Dept是两个不同的节点。 “WORKS_FOR”是Emp和Dept节点之间的关系。因为它表示从Emp到Dept的箭头标记，那么这种关系描述的一样Emp WORKS_FOR Dept每个关系包含一个起始节点和一个结束节点。这里“Emp”是一个起始节点。“Dept”是端节点。由于该关系箭头标记表示从“Emp”节点到“Dept”节点的关系，该关系被称为“进入关系”到“Dept”节点。并且“外向关系”到“Emp”节点。像节点一样，关系也可以包含属性作为键值对。
 
-![image-20201127235121444](E:\新技术学习\java_study\Neo4j学习\images\image-20201127235121444.png)
+![image-20201127235121444](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201127235121444.png)
 
 
 
@@ -120,13 +120,13 @@ docker run --name neo4j -p 7474:7474 -p 7687:7687  -d  -v /neo4j/data:/data    n
 
 http：// ip：7474 / browser /
 
-![Neo4j数据浏览器](E:\新技术学习\java_study\Neo4j学习\images\201612260916443762.png)
+![Neo4j数据浏览器](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/201612260916443762.png)
 
 Neo4j数据浏览器用于执行CQL命令并查看输出输出。这里我们需要在美元提示符处执行所有CQL命令：“$”
 
 在美元符号后键入命令，然后单击“执行”按钮运行命令。它与Neo4j数据库服务器交互，检索和显示下面的结果到那个美元提示。使用“UI视图”按钮以图形格式查看结果。 上图以“UI视图”格式显示结果。使用“网格视图”按钮在网格视图中查看结果。 下图在“网格视图”格式中显示相同的结果。
 
-![网格视图](E:\新技术学习\java_study\Neo4j学习\images\201612260918064546.png)
+![网格视图](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/201612260918064546.png)
 
 当我们使用“网格视图”查看我们的查询结果时，我们可以将它们导出为两种不同格式的文件。
 
@@ -274,7 +274,7 @@ MATCH (dept:Dept)
 - dept是节点名称
 - Dept是emp节点的标签名称
 
-![image-20201128113056991](E:\新技术学习\java_study\Neo4j学习\images\image-20201128113056991.png)
+![image-20201128113056991](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128113056991.png)
 
 数据浏览器中看到的是错误的消息。如果你观察到错误消息，它告诉我们，MATCH 经常需要与其他的语句配合才可以使用.
 
@@ -287,7 +287,7 @@ MATCH (dept:Dept)
 MATCH (dept:Dept) return dept
 ```
 
-![image-20201128113446727](E:\新技术学习\java_study\Neo4j学习\images\image-20201128113446727.png)
+![image-20201128113446727](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128113446727.png)
 
 ### 4.3Neo4j CQL - RETURN子句
 
@@ -340,7 +340,7 @@ RETURN dept.deptno
 - dept是节点名称
 - deptno是dept节点的属性名称
 
-![image-20201128131614470](E:\新技术学习\java_study\Neo4j学习\images\image-20201128131614470.png)
+![image-20201128131614470](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128131614470.png)
 
 发现该错误消息，它告诉我们，我们不能单独使用RETURN子句。我们应该既MATCH使用或CREATE命令。
 
@@ -439,7 +439,7 @@ RETURN dept.deptNo,dept.dName
 - deptno是dept节点的属性名称
 - dname是dept节点的属性名
 
-![image-20201128132137637](E:\新技术学习\java_study\Neo4j学习\images\image-20201128132137637.png)
+![image-20201128132137637](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128132137637.png)
 
 ## 5.Neo4j图数据库遵循属性图模型来存储和管理其数据。
 
@@ -505,7 +505,7 @@ CREATE (<node-name>:<label-name>)
 CREATE (google1:GooglePlusProfile)
 ```
 
-![image-20201128140154729](E:\新技术学习\java_study\Neo4j学习\images\image-20201128140154729.png)
+![image-20201128140154729](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128140154729.png)
 
 #### 5.2.3多个标签到节点
 
@@ -540,7 +540,7 @@ CREATE (m:Movie:Cinema:Film:Picture)
 
 Movie, Cinema, Film, Picture是m节点的多个标签名称
 
-![image-20201128140416825](E:\新技术学习\java_study\Neo4j学习\images\image-20201128140416825.png)
+![image-20201128140416825](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128140416825.png)
 
 #### 5.2.4单个标签到关系 
 
@@ -588,13 +588,13 @@ r1是关系名称
 
 LIKES是一个关系标签名称
 
-![image-20201128140602570](E:\新技术学习\java_study\Neo4j学习\images\image-20201128140602570.png)
+![image-20201128140602570](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201128140602570.png)
 
 ## 6.Neo4j Java架构
 
 ### 6.1下图显示了Neo4j JAVA API应用程序的体系结构
 
-![Neo4j JAVA API](E:\新技术学习\java_study\Neo4j学习\images\201701021529515240.jpg)
+![Neo4j JAVA API](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/201701021529515240.jpg)
 
 客户端程序使用Neo4j Java API之一来在Neo4j数据库上交互和执行数据库操作。
 
@@ -721,7 +721,7 @@ Spring Boot承担了应用程序配置和引导的大部分责任，因此我们
 
 实体概述了应用程序中的主要对象。在我们的图中，它们将是节点。
 
-![图模型](E:\新技术学习\java_study\Neo4j学习\images\GraphModel.png)
+![图模型](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/GraphModel.png)
 
 有一个`Person`实体和一个`Movie`实体，因此每个实体都需要一个域类。每个域类的前几行如下所示。
 

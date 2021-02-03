@@ -86,7 +86,7 @@ NoSQL在不太影响性能的情况，就可以方便地实现高可用的架构
 
 ​	数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。这使得Redis可执行单层树复制。存盘可以有意无意的对数据进行写操作。由于完全实现了发布/订阅机制，使得从数据库在任何地方同步树时，可订阅一个频道并接收主服务器完整的消息发布记录。同步对读取操作的可扩展性和数据冗余很有帮助。
 
-![image-20201126170058353](E:\新技术学习\java_study\Redis学习\images\image-20201126170058353.png)
+![image-20201126170058353](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201126170058353.png)
 
 ### 2.2Redis能干嘛？
 
@@ -117,7 +117,7 @@ Redis是C语言写的,官方提供的数据为100000+ 的QPS ,完全不比同样
  docker pull redis:latest
 ```
 
-![image-20201126175645039](E:\新技术学习\java_study\Redis学习\images\image-20201126175645039.png)
+![image-20201126175645039](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201126175645039.png)
 
 #### 2.3.2运行容器
 
@@ -137,7 +137,7 @@ docker run -d --name redis -p 6379:6379 redis
 docker exec -it redis /bin/bash
 ```
 
-![image-20201126184042731](E:\新技术学习\java_study\Redis学习\images\image-20201126184042731.png)
+![image-20201126184042731](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201126184042731.png)
 
 ## 3.Redis的基本命令
 
@@ -338,7 +338,7 @@ PONG
 
 ## 4.Redis的数据类型
 
-![image-20201126193436334](E:\新技术学习\java_study\Redis学习\images\image-20201126193436334.png)
+![image-20201126193436334](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201126193436334.png)
 
 ## 5.Redis事务
 
@@ -1883,6 +1883,6 @@ public class JRedisTest {
 
 ```
 
-![image-20201127220035912](E:\新技术学习\java_study\Redis学习\images\image-20201127220035912.png)
+![image-20201127220035912](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201127220035912.png)
 
 ![image-20201127223529259](E:\新技术学习\java_study\Redis学习\images\image-20201127223529259.png)

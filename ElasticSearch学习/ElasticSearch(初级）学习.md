@@ -24,7 +24,7 @@ docker run --name elasticsearch01 -d  -p 9200:9200 -p 9300:9300  --network esnet
 
 #### 1.1.3访问：http://121.89.208.222:9200/
 
-![image-20201121203104550](images\21.png)
+![image-20201121203104550](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/21.png)
 
 出现该页面则访问成功。
 
@@ -44,7 +44,7 @@ docker exec -it elasticsearch01 bash
 vi  config/elasticsearch.yml
 ```
 
-![image-20201121203659670](images\22.png)
+![image-20201121203659670](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/22.png)
 
 
 
@@ -70,19 +70,19 @@ docker run --name kibana01 -d  -p 5602:5601 --link=elasticsearch01 kibana:7.9.3
 
 这里使用我已经创建的elastisearch01作为kibana连接的容器。必须要指定 --link=“你已经创建的正在运行的elasticsearch的容器名称”作为容器连接，否则会出现：
 
-![image-20201121205818859](images\25.png)
+![image-20201121205818859](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/25.png)
 
 #### 1.2.3进入kibana容器kibana01，修改配置文件 kibana.yml
 
 
 
-![image-20201121205100867](images\23.png)
+![image-20201121205100867](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/23.png)
 
 将 “http://elasticsearch:9200”修改为：“http://elasticsearch01:9200”，也就是把这个URL中的IP地址改为和之前创建kibana时指定的 --link =elasticsearch01的对应。如果创建kibana时未指定 --link，则默认是 “elasticsearch".
 
 
 
-![image-20201121205214593](images\24.png)
+![image-20201121205214593](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/24.png)
 
 修改后重新启动kibana。
 
@@ -91,7 +91,7 @@ docker restart kibana01
 
 ```
 
-![image-20201121205935284](images\26.png)
+![image-20201121205935284](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/26.png)
 
 ### 1.3安装elasticsearch head插件监控管理
 
@@ -101,13 +101,13 @@ docker restart kibana01
  docker run --name eshead -d -p 9100:9100  mobz/elasticsearch-head:5-alpine
 ```
 
-![image-20201121212906437](images\28.png)
+![image-20201121212906437](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/28.png)
 
 #### 1.3.2在服务器开放9100端口
 
 #### 1.3.3访问地址：http://121.89.208.222:9100/
 
-![image-20201121212844162](images\27.png)
+![image-20201121212844162](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/27.png)
 
 ## 2、ES核心概念
 
@@ -164,7 +164,7 @@ elasticsearch在后台把每个索引划分成多个分片。每个分片可以�
 
 一个集群至少有一 个节点,而一个节点就是一-个elasricsearch进程 ,节点可以有多个索引默认的,如果你创建索引,那么索引将会有个5个分片( primary shard ,又称主分片)构成的,每一个主分片会有-一个副本( replica shard ,又称复制分片）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224136138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224136138.png)
 
 上图是一个有3个节点的集群,可以看到主分片和对应的复制分片都不会在同-个节点内,这样有利于某个节点挂掉了,数据也不至于丢失。实际上, 一个分片是- -个Lucene索引, -一个包含倒排索引的文件目录,倒排索引的结构使得elasticsearch在不扫描全部文档的情况下,就能告诉你哪些文档包含特定的关键字。不过,等等,倒排索引是什么鬼?
 
@@ -379,31 +379,31 @@ PUT /索引名/类型名(高版本都不写了，都是_doc)/文档id
 
 {请求体}
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224224886.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224224886.png)
 
 完成了自动添加了索引！数据也成功的添加了。
 
-![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-LdUc6t8b-1598625546984)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598532887497.png)]](https://img-blog.csdnimg.cn/20200828224246679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-LdUc6t8b-1598625546984)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598532887497.png)]](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224246679.png)
 
 那么name这个字段用不用指定类型呢
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224311944.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224311944.png)
 
 指定字段的类型properties 就比如sql创表
 
 获得这个规则！可以通过GET请求获得具体的信息
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020082822452110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/2020082822452110.png)
 
 如果自己不设置文档字段类型，那么es会自动给默认类型
 
-![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-CNGgrrjI-1598625546996)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598533818617.png)]](https://img-blog.csdnimg.cn/20200828224539919.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-CNGgrrjI-1598625546996)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598533818617.png)]](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224539919.png)
 
 ### 3.2 cat命令
 
 获取健康值
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224607691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224607691.png)
 
 获取所有的信息
 
@@ -412,7 +412,7 @@ GET _cat/indices?v
 1
 ```
 
-![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-1ZKzwXyB-1598625547001)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598534090085.png)]](https://img-blog.csdnimg.cn/20200828224623550.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-1ZKzwXyB-1598625547001)(C:\Users\53984\AppData\Roaming\Typora\typora-user-images\1598534090085.png)]](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224623550.png)
 
 还有很多 可以自动展示 都试试
 
@@ -420,7 +420,7 @@ GET _cat/indices?v
 
 1.修改我们可以还是用原来的PUT的命令，根据id来修改
 
-![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-J5lCYCsQ-1598625547003)(C:\Users\53984\Desktop\文件\md学习文件\1598534298931.png)]](https://img-blog.csdnimg.cn/2020082822464153.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-J5lCYCsQ-1598625547003)(C:\Users\53984\Desktop\文件\md学习文件\1598534298931.png)]](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/2020082822464153.png)
 
 但是如果没有填写的字段 会重置为空了 ，相当于java接口传对象修改，如果只是传id的某些字段，那其他没传的值都为空了。
 
@@ -450,9 +450,9 @@ POST /test3/_doc/1
 1234567891011121314151617181920
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224703275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224703275.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224718584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224718584.png)
 
 带doc修改 查询也是带doc的（document）
 
@@ -460,7 +460,7 @@ POST /test3/_doc/1
 
 关于删除索引或者文档的操作
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224733641.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224733641.png)
 
 通过DELETE命令实现删除，根据你的请求来判断是删除索引还是删除文档记录
 
@@ -474,13 +474,13 @@ POST /test3/_doc/1
 
 搜索功能search
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224751861.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224751861.png)
 
 这边name是text 所以做了分词的查询 如果是keyword就不会分词搜索了
 
 > ### 复杂操作搜索select（排序，分页，高亮，模糊查询，精准查询）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224818363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224818363.png)
 
 ```json
 //测试只能一个字段查询
@@ -497,23 +497,23 @@ GET lisen/user/_search
 
 结果过滤，就是只展示列表中某些字段
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224837652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224837652.png)
 
 包含
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224854820.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224854820.png)
 
 不包含
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224913742.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224913742.png)
 
 排序
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224929501.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224929501.png)
 
 分页
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828224950826.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828224950826.png)
 
 代码
 
@@ -542,17 +542,17 @@ GET lisen/user/_search
 
 must（and），所有的条件都要符合
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225018246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225018246.png)
 
 should（or）或者的 跟数据库一样
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225032999.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225032999.png)
 
 must_not（not）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225058189.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225058189.png)
 
 条件区间
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020082822512379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/2020082822512379.png)
 
 - gt大于
 - gte大于等于
@@ -561,7 +561,7 @@ must_not（not）
 
 > 匹配多个条件（数组）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225140204.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225140204.png)
 
 match没用倒排索引 这边改正一下
 
@@ -574,24 +574,24 @@ term查询是直接通过倒排索引指定的词条进程精确查找的
 - term，直接查询精确的
 - match，会使用分词器解析！（先分析文档，然后通过分析的文档进行查询）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225158338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225158338.png)
 
 默认的是被分词了
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225215133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225215133.png)
 
 keyword没有被分词
 
 精确查询多个值
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225246611.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225246611.png)
 
 > 高亮
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225305992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225305992.png)
 
 还能自定义高亮的样式
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200828225327239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpc2VuMDEwNzAxMDc=,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/20200828225327239.png)
 
 ## 4、springboot集成
 

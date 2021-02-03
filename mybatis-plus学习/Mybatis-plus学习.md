@@ -23,7 +23,7 @@ Mybatis-Plus（简称MP）是一个 Mybatis 的增强工具，在 Mybatis 的基
 
 ### 1.3框架结构
 
-![image-20201122200900533](images\1.png)
+![image-20201122200900533](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/1.png)
 
 ### 1.4  快速开始
 
@@ -53,11 +53,11 @@ CREATE TABLE `account` (
 
 #### 1.4.3使用Navicat手动插入数据：
 
-![image-20201124234112497](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201124234112497.png)
+![image-20201124234112497](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201124234112497.png)
 
 #### 1.4.4创建一个springboot项目
 
-![image-20201124234451760](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201124234451760.png)
+![image-20201124234451760](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201124234451760.png)
 
 
 
@@ -179,7 +179,7 @@ class BooksystemApplicationTests {
 
 #### 1.4.9开始测试
 
-![image-20201124235437334](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201124235437334.png)
+![image-20201124235437334](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201124235437334.png)
 
 可见测试访问查找所有成功。
 
@@ -420,7 +420,7 @@ class BooksystemApplicationTests {
 
 ⑤IService<T> 的默认实现类为ServiceImpl.java
 
-![image-20201125120823383](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125120823383.png)
+![image-20201125120823383](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125120823383.png)
 
 从这个实现类中我们可以看到，ServiceImpl.java使用了BaseMapper或者BaseMapper的子类用于实现增删查改等功能，实际上也就是在BaseMapper功能的基础上封装了一些方法。ServiceImpl功能的实现还是要依赖于BaseMapper。
 
@@ -742,7 +742,7 @@ public class AccountServiceTest {
 
 #### 3.4.1Wrapper的类图体系
 
-![img](E:\新技术学习\java_study\mybatis-plus学习\images\1470521-20200408175328100-117288012.png)
+![img](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/1470521-20200408175328100-117288012.png)
 
 #### 3.4.2wapper介绍 
 
@@ -768,7 +768,7 @@ public class AccountServiceTest {
 
 #### 3.4.3常用方法
 
-![img](E:\新技术学习\java_study\mybatis-plus学习\images\1470521-20200408174347575-1589738937.png)
+![img](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/1470521-20200408174347575-1589738937.png)
 
 #### 3.4.4方法详情：https://baomidou.com/guide/wrapper.html#abstractwrapper
 
@@ -911,11 +911,11 @@ snowflake是Twitter开源的分布式ID生成算法，结果是一个long型的I
 
 ### 5.2配置主键自增
 
-![image-20201125210143458](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125210143458.png)
+![image-20201125210143458](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125210143458.png)
 
 ### 5.3在数据库中配置主键自增
 
-![image-20201125210355729](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125210355729.png)
+![image-20201125210355729](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125210355729.png)
 
 ### 5.4IdType的类型
 
@@ -1037,11 +1037,11 @@ private Integer deleted;
 
 #### 6.3.1在数据库中增加字段   **deleted**
 
-![image-20201125220421261](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125220421261.png)
+![image-20201125220421261](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125220421261.png)
 
 #### 6.3.2在实体类中添加注释
 
-![image-20201125220545245](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125220545245.png)
+![image-20201125220545245](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125220545245.png)
 
 #### 6.3.3在application.properties中添加配置
 
@@ -1075,7 +1075,7 @@ mybatis-plus.global-config.db-config.logic-not-delete-value=0
     }
 ```
 
-![image-20201125222918802](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125222918802.png)
+![image-20201125222918802](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125222918802.png)
 
 可见我们在进行删除时mybatisplus会自动添加条件转换为更新语句。
 
@@ -1191,7 +1191,7 @@ public enum FieldFill {
 
 #### 8.2.1首先在account表中添加createTime和updateTime字段
 
-![image-20201125232450730](E:\新技术学习\java_study\mybatis-plus学习\images\image-20201125232450730.png)
+![image-20201125232450730](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201125232450730.png)
 
 #### 8.2.2在Account.java中添加字段以及注释
 
@@ -1589,7 +1589,7 @@ entity2.java.vm
 
 ## 字段其他信息查询注入
 
-![custom-fields](E:\新技术学习\java_study\mybatis-plus学习\images\custom-fields.png)
+![custom-fields](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/custom-fields.png)
 
 ```java
 new DataSourceConfig().setDbQuery(new MySqlQuery() {
