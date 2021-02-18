@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: boot_project
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mvc:
+    static-path-pattern: /**
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8080
+mybatis:
+  mapper-locations: classpath:com/example/boot/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    auto-mapping-behavior: full
+    auto-mapping-unknown-column-behavior: none
+  type-aliases-package: com.example.boot.entity
+logging:
+  level:
+    com.example: debug
+    org.springframework: warn
