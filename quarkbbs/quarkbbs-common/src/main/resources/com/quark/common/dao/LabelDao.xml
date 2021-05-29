@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.LabelDao">
+
+    <select id="findLabelByPage" resultType="label">
+        select * from quark_label
+    </select>
+    <select id="findSearchLabelByPage" resultType="label">
+        select * from quark_label
+   <if test="label != null">
+       <where>
+           <if test="label.name != null and label.name != ''">
+               name like concat('%',#{label.name},'%')
+           </if>
+           <if test="label.details != null and label.details != ''">
+             and   details like concat('%',#{label.details},'%')
+           </if>
+       </where>
+   </if>
+    </select>
+</mapper>

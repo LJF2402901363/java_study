@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.NotificationDao">
+
+    <resultMap id="notificationMap" type="notification">
+        <id column="id" property="id"></id>
+        <association property="fromuser" javaType="user" column="fromuser_id" select="com.quark.common.dao.UserDao.findUserByUserId"></association>
+        <association property="touser" javaType="user" column="touser_id" select="com.quark.common.dao.UserDao.findUserByUserId"></association>
+        <association property="posts" javaType="posts" column="posts_id" select="com.quark.common.dao.PostsDao.findPostById"></association>
+    </resultMap>
+    <update id="updateByIsRead">
+        update quark_notification  set isRead = 1 where touser_id = #{userId}
+    </update>
+
+    <select id="getNotificationCount" resultType="java.lang.Long">
+        SELECT count(id) FROM quark_notification  WHERE touser_id = #{id} AND is_read = 0
+    </select>
+    <select id="findUnreadNotificationByUserId" resultMap="notificationMap">
+        select * from quark_notification
+        <if test="uid != null">
+            <where>
+                touser_id = #{uid}
+                and   isread = 0
+            </where>
+        </if>
+        order by init_time desc
+    </select>
+    <select id="findReadedNotificationByUserId"  resultMap="notificationMap">
+        select * from quark_notification
+        <if test="uid != null">
+            <where>
+                touser_id = #{uid}
+                and   isread = 1
+            </where>
+        </if>
+        order by init_time desc
+    </select>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.RoleDao">
+    <resultMap id="roleMap" type="role">
+        <id column="id" property="id"></id>
+        <collection property="adminUsers" column="id"  javaType="java.util.HashSet" ofType="adminuser" select="com.quark.common.dao.AdminUserDao.findAdminUserByRoleId"></collection>
+        <collection property="permissions" column="id" javaType="java.util.HashSet" ofType="permission" select="com.quark.common.dao.PermissionDao.findSimplePermissionByRoleId"></collection>
+    </resultMap>
+    <select id="findAll" resultType="role">
+        select * from quark_role
+    </select>
+
+    <select id="findRolesByPermissionId" resultType="role">
+      select *
+      from quark_role as qr left join quark_role_permission as qrp on qr.id = qrp.role_id left join quark_permission as qp on qrp.permissions_id = qp.id
+      <where>
+          qp.id = #{permissionId}
+      </where>
+    </select>
+
+    <select id="findRoleSetByAdminUserId" resultMap="roleMap">
+        select  qr.* from
+                       quark_role as qr left join quark_adminuser_role as qar on qr.id = qar.role_id
+                        left join quark_adminuser as qa on qar.adminuser_id = qa.id
+       where  qa.id = #{adminUserId}
+
+    </select>
+    <select id="findRoleByRoleId" resultMap="roleMap">
+        select  * from    quark_role  where  id = #{roleId}
+    </select>
+</mapper>

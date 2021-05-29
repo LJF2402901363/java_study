@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.ReplyDao">
+  <resultMap id="replyMap" type="reply">
+      <id property="id" column="id"></id>
+      <association property="user" javaType="user" column="user_id" select="com.quark.common.dao.UserDao.findUserByUserId"></association>
+      <association property="posts" javaType="posts" column="posts_id" select="com.quark.common.dao.PostsDao.findPostById"></association>
+  </resultMap>
+
+    <select id="findAll" resultType="reply">
+        select * from quark_reply
+    </select>
+    <select id="findReplyByPage" resultMap="replyMap">
+        select * from  quark_reply
+        <where>
+           <if test="reply != null">
+               <if test="reply.user_id != null">
+                   user_id = #{reply.user_id}
+               </if>
+               <if test="reply.content != null">
+                   and content like concat('%',#{reply.content},'%')
+               </if>
+           </if>
+
+        </where>
+    </select>
+    <select id="findByPageById" resultType="reply">
+        select * from  quark_reply
+        <where>
+            id = #{id}
+        </where>
+    </select>
+</mapper>

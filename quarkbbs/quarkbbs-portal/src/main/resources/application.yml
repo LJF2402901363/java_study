@@ -1,0 +1,10 @@
+server:
+  port: 8082
+logging:
+  level:
+    com.quark: debug
+    org.springframework: warn
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML

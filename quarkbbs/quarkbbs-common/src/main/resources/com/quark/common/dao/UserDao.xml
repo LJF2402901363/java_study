@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.UserDao">
+    <select id="findByUsername" resultType="user">
+        select * from quark_user where username = #{username}
+    </select>
+    <select id="findByEmail" resultType="user">
+        select * from quark_user where email = #{email}
+    </select>
+    <select id="findNewUser" resultType="user">
+        select u.id, u.username , u.icon from quark_user u where init_time  between #{startTime}  and #{endTime}  ORDER BY u.id DESC limit 12
+    </select>
+    <select id="findUserByPage" resultType="user">
+    select  * from quark_user
+    <if test="user != null">
+        <where>
+           <if test="user.username != null and user.username !=''">
+               username like concat('%',#{user.username},'%')
+           </if>
+            <if test="user.email != null and user.email !=''">
+                and email like concat('%',#{user.email},'%')
+            </if>
+            <if test="user.signature != null and user.signature !=''">
+                and signature like concat('%',#{user.signature},'%')
+            </if>
+            <if test="user.enable != null">
+              and enable = #{user.enable}
+            </if>
+
+        </where>
+    </if>
+    </select>
+    <select id="findUserByUserId" resultType="user">
+        select * from quark_user where id = #{userId}
+    </select>
+</mapper>

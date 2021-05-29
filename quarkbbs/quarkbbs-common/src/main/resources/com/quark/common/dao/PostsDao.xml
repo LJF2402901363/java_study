@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.PostsDao">
+ <resultMap id="postMap" type="posts">
+     <id column="id" property="id"></id>
+     <association property="user" javaType="user" column="user_id" select="com.quark.common.dao.UserDao.findUserByUserId"></association>
+ </resultMap>
+    <select id="findAll" resultMap="postMap">
+        select * from quark_posts
+    </select>
+    <select id="findHot" resultMap="postMap">
+        select p.id, p.title , p.reply_count from quark_posts p where  init_time  between #{startTime}  and #{endTime}  ORDER by reply_count desc limit 10
+    </select>
+    <select id="findByUser" resultMap="postMap">
+        select * from quark_posts where user_id = #{user.id}
+    </select>
+    <select id="findByLabel" resultMap="postMap">
+        select * from quark_posts where label_id = #{label.id}
+    </select>
+    <select id="findPostsByPage" resultMap="postMap">
+   select * from quark_posts
+    <where>
+      <if test="posts != null">
+         <if test="posts.user_id !=null ">
+             user_id = #{posts.user_id}
+         </if>
+          and top = #{posts.top}
+          and good = #{posts.good}
+          <if test="posts.title !=null and  posts.title != ''">
+              and   title like concat('%',#{posts.title},'%')
+          </if>
+
+      </if>
+
+
+    </where>
+    </select>
+    <select id="getPostsByUserId" resultMap="postMap">
+        select * from quark_posts where user_id = #{id} order by init_time desc
+    </select>
+    <select id="getPostsByLabelId" resultMap="postMap">
+        select * from quark_posts  where  label_id = #{label_id}
+    </select>
+    <select id="findPostById" resultMap="postMap">
+        select * from quark_posts where id = #{postsId}
+    </select>
+    <select id="findPostsPageByType" resultMap="postMap">
+        select * from quark_posts
+        <where>
+            <if test="posts != null">
+                <if test="posts.user_id !=null ">
+                    user_id = #{posts.user_id}
+                </if>
+                <if test="posts.title !=null and  posts.title != ''">
+                    and   title like concat('%',#{posts.title},'%')
+                </if>
+
+            </if>
+            <if test="type !=null and type =='good'">
+                and good = 1
+            </if>
+            <if test="type !=null and type =='top'">
+                and good = 1
+            </if>
+        </where>
+    </select>
+</mapper>

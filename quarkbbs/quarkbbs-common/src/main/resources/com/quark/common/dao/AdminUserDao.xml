@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quark.common.dao.AdminUserDao">
+
+    <resultMap id="adminUserMap" type="adminUser">
+        <id property="id" column="id"></id>
+        <collection property="roles" column="qrId" javaType="java.util.HashSet" ofType="role" >
+            <id column="qrId" property="id"></id>
+            <result property="description" column="qrDescription"></result>
+            <result property="name" column="qrName"></result>
+            <collection property="permissions" column="qrId" javaType="java.util.HashSet" ofType="permission" select="com.quark.common.dao.PermissionDao.findRolePermissionByRoleId" ></collection>
+        </collection>
+    </resultMap>
+    <select id="findByUsername" resultMap="adminUserMap" >
+        <include refid="mapSql"></include>
+        where qa.username =#{username}
+    </select>
+    <sql id="mapSql">
+        select qa.*,qr.id as qrId,qr.name as qrName,qr.description as qrDescription
+        from quark_adminuser as qa left join quark_adminuser_role as  qar on qa.id = qar.adminuser_id
+                                   left join quark_role qr on qar.role_id = qr.id
+    </sql>
+    <select id="findByPage" resultMap="adminUserMap">
+       <include refid="mapSql"></include>
+        <where>
+            <if test="adminUser != null">
+                qa.username like concat('%',#{adminUser.username},'%')
+            </if>
+         and qa.enable = 1
+        </where>
+    </select>
+    <select id="findAdminUserById" resultMap="adminUserMap">
+        <include refid="mapSql"></include>
+        where qa.id =#{id}
+    </select>
+
+    <select id="findAdminUserByRoleId" resultType="adminUser">
+        select * from
+            quark_adminuser as qa left join quark_adminuser_role as qar on qa.id = qar.adminuser_id
+                                  left join quark_role as qr on qar.role_id = qr.id
+        where  qr.id = #{roleId}
+    </select>
+</mapper>
