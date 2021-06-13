@@ -322,11 +322,123 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 ```
 
+### 3.7Swagger结合安全验证时候设置全局请求头，这里以jwt的token为例
+
+```
+package com.shiyun.config;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.*;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.schema.ModelSpecification;
+import springfox.documentation.schema.ScalarType;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.Collections;
+import java.util.List;
+/**
+ * Classname:Swagger3Config
+ *
+ * @description:  Swagger3的配置文件
+ * @author: 陌意随影
+ * @Date: 2021-01-26 15:23
+ * @Version: 1.0
+ **/
+@Configuration
+@EnableOpenApi
+public class Swagger3Config {
+    /** 是否开启swagger */
+    @Value("${swagger.enabled}")
+    private boolean enabled;
+
+    @Value("${token.header}")
+    private String header;
+    /**
+     * @Description :创建一个发送请求不需要token请求头的Docket
+     * @Date 0:35 2021/2/23 0023
+     * @Param * @param  ：
+     * @return springfox.documentation.spring.web.plugins.Docket
+     **/
+    @Bean
+    public Docket createNoRequiredTokenDocket(){
+        //创建Swagger3文档对象
+        Docket docket = new Docket(DocumentationType.OAS_30);
+        //配置多个Docket时候必须指定唯一的名字
+        docket.groupName("请求不需要token");
+        //设置是否启用Swagger
+        docket.enable(enabled);
+        //用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
+        docket.apiInfo(apiInfo());
+        // 扫描指定包中的swagger注解
+        // .apis(RequestHandlerSelectorbushis.basePackage("com.ruoyi.project.tool.swagger"))
+        // 扫描所有 .apis(RequestHandlerSelectors.any())
+        // 扫描所有有注解的api，用这种方式更灵活
+        docket.select().apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)).paths(PathSelectors.any()).build();
+        return docket;
+    }
+    /**
+     * @Description :创建一个发送请求需要token请求头的Docket
+     * @Date 0:35 2021/2/23 0023
+     * @Param * @param  ：
+     * @return springfox.documentation.spring.web.plugins.Docket
+     **/
+    @Bean
+    public Docket createRequiredTokenDocket(){
+        //创建Swagger3文档对象
+        Docket docket = new Docket(DocumentationType.OAS_30);
+        //设置是否启用Swagger
+        docket.enable(enabled);
+        //配置多个Docket时候必须指定唯一的名字
+        docket.groupName("请求需要token");
+        //用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
+        docket.apiInfo(apiInfo());
+        //每一个请求都可以添加header
+        docket.globalRequestParameters(globalRequestParameters());
+        // 扫描指定包中的swagger注解
+        // .apis(RequestHandlerSelectorbushis.basePackage("com.ruoyi.project.tool.swagger"))
+        // 扫描所有 .apis(RequestHandlerSelectors.any())
+        // 扫描所有有注解的api，用这种方式更灵活
+        docket.select().apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any()).build();
+        return docket;
+    }
+    private List<RequestParameter> globalRequestParameters() {
+        RequestParameterBuilder parameterBuilder = new RequestParameterBuilder()
+                //每次请求加载header
+                .in(ParameterType.HEADER)
+                //头标签
+                .name(header)
+                //是否必须
+                .required(false)
+                .query(param -> param.model(model -> model.scalarModel(ScalarType.STRING)));
+        return Collections.singletonList(parameterBuilder.build());
+    }
+    private ApiInfo apiInfo() {
+        Contact contact = new Contact("诗韵","2402901363@qq.com","https://gitee.com/poetic-charm/");
+        ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
+        apiInfoBuilder.title("诗韵后台测试接口")
+                .description("这是一个关于诗词的项目")
+                .contact(contact)
+                .version("v1.0");
+        return apiInfoBuilder.build();
+    }
+}
+
+```
 
 
-### 3.7启动
 
-### 3.8访问：http://localhost:8081/swagger-ui/index.html
+### 3.8启动
+
+### 3.9访问：http://localhost:8081/swagger-ui/index.html
 
 ![image-20201122211401222](https://gitee.com/ljf2402901363/picgo-images/raw/master/typora/image-20201122211401222.png)
 
