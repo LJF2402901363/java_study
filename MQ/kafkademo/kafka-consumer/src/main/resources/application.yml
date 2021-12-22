@@ -1,0 +1,23 @@
+spring:
+  kafka:
+    # 默认消费组
+    consumer:
+      # kafka集群的地址的ip:port对，多个则以逗号分开
+      bootstrap-servers: 111.229.11.173:9093
+      client-id: test
+      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+      # earliest:重置为分区中最小的offset;
+      # latest:重置为分区中最新的offset(消费分区中新产生的数据);
+      # none:只要有一个分区不存在已提交的offset,就抛出异常
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 消费者个数
+      concurrency: 3
+      group-id: consumer_test
+        # kafka提供的序列化和反序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      # 消费端监听的topic不存在时，项目启动会报错(关掉)
+      missing-topics-fatal: false

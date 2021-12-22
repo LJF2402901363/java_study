@@ -1,0 +1,21 @@
+spring:
+  kafka:
+    producer:
+      # kafka集群的地址的ip:port对，多个则以逗号分开
+      bootstrap-servers: 111.229.11.173:9093
+      # 生产者重试次数
+      retries: 2
+      # 批量大小
+      batch-size: 16384
+      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+      acks: 1
+      # 提交延时,当生产端积累的消息达到batch-size或接收到消息linger.ms后,生产者就会将消息提交给kafka
+      # linger.ms为0表示每接收到一条消息就提交给kafka,这时候batch-size其实就没用了
+      properties:
+        linger:
+          ms: 0
+      # 生产端缓冲区大小
+      buffer-memory: 33554432
+    listener:
+      # 消费端监听的topic不存在时，项目启动会报错(关掉)
+      missing-topics-fatal: false
