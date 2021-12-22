@@ -116,7 +116,7 @@ kafka-console-producer.sh --broker-list 127.0.0.1:9093 --topic test
 ### 2.4访问kafka manager
 
 ```html
-http://111.229.11.173:9000/
+http://服务器ip:9000/
 ```
 
 ## 3.springboot整合kafka
