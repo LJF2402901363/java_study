@@ -1,0 +1,10 @@
+[debug] > Exec(;project {file:/E:/ѧϰ/scala_study/code/demo/}demo; startServer, None, None)
+[debug] > Exec(project {file:/E:/ѧϰ/scala_study/code/demo/}demo, None, None)
+[error] Invalid URI
+[error] Expected end of input.
+[error] Expected '}'
+[error] project {file:/E:/ѧϰ/scala_study/code/demo/}demo
+[error]                   ^
+[debug] > Exec(idea-shell, None, None)
+[debug] > Exec(, None, None)
+[debug] > Exec(idea-shell, None, None)
